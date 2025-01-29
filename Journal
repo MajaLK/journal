@@ -1,0 +1,84 @@
+using System;
+class Program
+{
+    public static void Main()
+    {
+        Console.WriteLine("Hello, welcome to your journal!\n" +
+            "Now you will be able to insert the current date\n" +
+            "Let's start with a year! Please choose a number from 2000 to 2025");
+        int year = CheckDate("year", 2000, 2025);
+        Console.WriteLine("Now, please choose a month - number from 1 to 12");
+        int month = CheckDate("month", 1, 12);
+        int day = 0;
+        switch (month)
+        {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                Console.WriteLine("Lastly, please select the current day - number from 1 to 31");
+                day = CheckDate("day",1, 31);
+                break;
+            case 2:
+                if (year % 4 == 0)
+                {
+                    Console.WriteLine("Lastly, please select the current day - number from 1 to 29");
+                    day = CheckDate("day", 1, 29);
+                }
+                else
+                {
+                    Console.WriteLine("Lastly, please select the current day - number from 1 to 28");
+                    day = CheckDate("day", 1, 28);
+                }
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                Console.WriteLine("Lastly, please select the current day - number from 1 to 30");
+                day = CheckDate("day",1, 30);
+                break;
+        }
+        string currentDate = ($"{day}.{month}.{year}");
+        Console.WriteLine($"Your chosen date is {currentDate}\n" +
+            $"Now please type in 'start' to begin writing in your journal");
+        string begin;
+        do
+        {
+            begin = Console.ReadLine();
+            if (begin != "start") Console.WriteLine("Please remember that you have to write 'start' to begin your journal");
+        }
+        while (begin != "start");
+        Console.WriteLine("Great! Now you can write in your journal\n" +
+            "Please write 'stop' to finish your journal");
+        using (StreamWriter writer = new StreamWriter($"C:\\Users\\Peter\\Desktop\\{currentDate}.txt"))
+        {
+            writer.WriteLine("Captain's log\n" +
+                $"Stardate {currentDate}\n");
+            string journal;
+            do
+            {
+                journal = Console.ReadLine();
+                if (journal != "stop") writer.WriteLine(journal);
+            }
+            while (journal != "stop");
+            writer.WriteLine("\nJean-Luc Picard");
+        }
+        Console.WriteLine("Thank you for writing in your journal");
+    }
+    public static int CheckDate (string part, int min, int max)
+    {
+        int date;
+        do
+        {
+            bool num = int.TryParse(Console.ReadLine(), out date);
+            if (num != true || date < min || date > max) Console.WriteLine($"Please remember that you can only choose a number from {min} to {max}");
+        }
+        while (date < min || date > max);
+        Console.WriteLine($"Your chosen {part} is {date}");
+        return date;
+    }
+}
