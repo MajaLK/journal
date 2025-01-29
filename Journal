@@ -7,7 +7,7 @@ class Program
             "Now you will be able to insert the current date\n" +
             "Let's start with a year! Please choose a number from 2000 to 2025");
         int year = CheckDate("year", 2000, 2025);
-        Console.WriteLine("Now, please choose a month - number from 1 to 12");
+        Console.WriteLine("Now please choose a month - number from 1 to 12");
         int month = CheckDate("month", 1, 12);
         int day = 0;
         switch (month)
@@ -67,7 +67,7 @@ class Program
             while (journal != "stop");
             writer.WriteLine("\nJean-Luc Picard");
         }
-        Console.WriteLine("Thank you for writing in your journal");
+        Console.WriteLine("Thank you for writing in your journal!");
     }
     public static int CheckDate (string part, int min, int max)
     {
